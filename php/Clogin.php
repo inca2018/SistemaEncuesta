@@ -1,0 +1,59 @@
+<?php
+  session_start([
+   'cookie_lifetime' => 86400,
+   'read_and_close'  => true,
+]);
+   require_once "Mlogin.php";
+   require_once "PasswordHash.php";
+
+   $login=new login();
+
+   $usu=isset($_POST["usu"])? limpiarCadena($_POST["usu"]):"";
+   $pass=isset($_POST["pass"])? limpiarCadena($_POST["pass"]):"";
+   $hasher=new PasswordHash(8,false);
+
+
+switch ($_GET["op"]){
+
+   case 'verificar':
+        //$f=$hasher->HashPassword("123456");
+        //echo $f;
+      $rspta=array("Error"=>false,"Mensaje"=>"","Rol"=>"");
+      // validar si el usuario exite
+      $validausu=$login->validaUsuario($usu);
+       // echo "respuesta validar:".$validausu;
+      if($validausu>0){
+
+         $idusu=$login->idusu($usu);
+         $idusu=$idusu['idUsuario'];
+         //consulta contraseña
+         $hash=$login->password($usu);
+         $hash=$hash['password'];
+
+       if($hasher->CheckPassword($pass,$hash)==1){
+
+            $rspta=$login->datosUsuario($idusu);
+            $fetch=$rspta->fetch_object();
+            if (isset($fetch)){
+            $_SESSION['idUsuario']=$fetch->idUsuario;
+            $_SESSION['usuario']=$fetch->usuario;
+            $_SESSION['NombreUsuario']=$fetch->NombreUsuario;
+            }
+        }else{
+            $rspta["Error"]=2;
+            $rspta["Rol"]=$hash." --- ".$pass."---";
+            $rspta["Mensaje"]="Contraseña Invalido";
+         }
+
+      }else{
+         $rspta["Error"]=1;
+			$rspta["Rol"]=$usu;
+         $rspta["Mensaje"]="Usuario Invalido";
+      }
+      echo json_encode($rspta);
+
+   break;
+}
+
+
+?>
