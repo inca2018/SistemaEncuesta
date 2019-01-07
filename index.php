@@ -1,99 +1,89 @@
 <?php
-session_start();
+  require "php/Mlogin.php";
+   $gestion = new Login();
+?>
 
-if(isset($_SESSION['idUsuario'])){
-    header("Location: Gestion/Vista/Menu/index.php");
-}
-?><!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-   <meta name="description" content="Sistema">
-   <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
-   <title>Sistema de Encuesta</title>
-   <!-- =============== VENDOR STYLES ===============-->
-   <!-- FONT AWESOME-->
-   <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="System">
+    <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
+    <title>Encuesta</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="vendor/datatables.css" />
+    <link rel="stylesheet" href="vendor/sweetalert/dist/sweetalert.css" />
 
-    <!-- BOOSTRAP-->
-   <link rel="stylesheet" href="assets/css/bootstrap.css">
-   <!-- =============== BOOTSTRAP STYLES ===============-->
-   <link rel="stylesheet" href="assets/css/main.css" id="bscss">
-
-   <style>
-      html, body{
-         height: 100%;
-      }
-      .container, .row{
-         height: 100%;
-      }
-   </style>
 </head>
 
 <body>
-<div class="container">
-   <div class="row  d-flex justify-content-center">
-        <div class="col-12 col-md-6 col-lg-4 align-self-center ">
-            <div class="wrapper">
-                  <!-- START card-->
-               <div class="card card-flat">
-                  <div class="card-header text-center">
-                     <a href="#">
-                        <!-- <img class="img-fluid" src="img/qsystem.png" alt="Image"> -->
-                        <h2>Sistema de Encuestas</h2>
-                     </a>
-                  </div>
-                  <div class="card-body">
-                     <form class="mb-3" id="frmAcceso" novalidate="" autocomplete="off">
-                        <div class="form-group">
-                           <div class="input-group with-focus">
-                              <input class="form-control border-right-0" id="usuario" type="text" placeholder="Usuario" autocomplete="off" required>
-                              <div class="input-group-append">
-                                 <span class="input-group-text text-muted bg-transparent border-left-0"><i class="fa fa-user fa-lg text-gray-dark"></i></span>
-                              </div>
-                           </div>
-                           <label id="mensajeUsu"></label>
-                        </div>
-                        <div class="form-group">
-                           <div class="input-group with-focus">
-                              <input class="form-control border-right-0" id="password" type="password" placeholder="Password" required>
-                              <div class="input-group-append">
-                                 <span class="input-group-text  text-muted bg-transparent border-left-0"><i class="fa fa-lock fa-lg text-gray-dark"></i></span>
-                              </div>
-                           </div>
-                           <div id="mensajePass"></div>
-                        </div>
-                        <button class="button btn-block  primary mt-3" type="submit">Ingresar</button>
-                     </form>
-                  </div>
-               </div>
-                  <!-- END card-->
-               <div class="p-3 text-center">
-                  <span class="mr-2">&copy;</span>
-                  <span>2018</span>
-                  <span class="mr-2">-</span>
-                  <span>Sistema </span>
-                  <br>
-                  <span></span>
-               </div>
-                 <!-- /.login-box-body -->
-               <div class="text-center" id="loading">
-                <br>
-                  <i class="fa fa-spinner fa-pulse fa-3x fa-fw text-info"></i>
-                  <span class="sr-only">Loading...</span>
-               </div>
+    <?php
+    if(isset($_GET['env']) && isset($_GET['cli']) && isset($_GET['enc'])){
+        $idEnvio=$_GET['env'];
+        $respuesta=$gestion->VerificarEncuesta($idEnvio);
+        if($respuesta["Encontrado"]>0){
+            echo '<div class="row m-5 center_element ">
+        <div class="col-6 col-12-small">
+            <img class="mt-4" src="qsystem.png" width="60%" height="80%">
+            <h3 class="mt-4">LA ENCUESTA YA SE REALIZO!</h3>
+        </div>
+    </div>';
+
+        }else{
+    ?>
+
+    <form id="FormularioEncuesta" method="POST" autocomplete="off">
+        <input type="hidden" id="idEncuesta" value="<?php echo $_GET['enc'];?>">
+        <input type="hidden" id="idEnviado" value="<?php echo $_GET['env'];?>">
+        <input type="hidden" id="idCliente" value="<?php echo $_GET['cli'];?>">
+        <div class="row m-5">
+            <div class="col-12">
+                <div class="row gtr-uniform">
+                    <div class="col-12 col-12-xsmall center_element">
+                        <h2 id="tituloEncuesta"></h2>
+                        <p id="DetalleEncuesta"></p>
+                    </div>
+                </div>
+                <hr>
+                <div id="CuerpoEncuesta">
+
+                </div>
             </div>
-         </div>
-      </div>
-  </div>
+        </div>
+        <div class="row center_element">
+            <div class="col-3">
+              <button class="button primary" type="submit">ENVIAR RESULTADOS</button>
+            </div>
+        </div>
+    </form>
 
-   <!-- JQUERY-->
-   <script src="assets/js/jquery.min.js"></script>
-   <!-- BOOTSTRAP-->
-   <script src="assets/js/bootstrap.js"></script>
+    <div id="ModuloRespuesta" class="row m-5 center_element" style="display:none;">
+         <div class="col-6 col-12-small">
+            <img class="mt-4" src="qsystem.png" width="60%" height="80%">
+            <h3  class="mt-4">GRACIAS POR SUS RESPUESTAS, SE ENVIO LOS RESULTADOS A NUESTRO SISTEMA.</h3>
+        </div>
+    </div>
 
-   <script src="login.js"></script>
+    <?php
+    }
+
+    }else{
+
+    ?>
+    <div class="row m-5 center_element ">
+        <div cl  ass="col-6 col-12-small">
+            <img class="mt-4" src="qsystem.png" width="60%" height="80%">
+            <h3  class="mt-4">SE ENCONTRO UN ERROR EN LA BUSQUEDA DE LA ENCUESTA</h3>
+        </div>
+
+    </div>
+    <?php } ?>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="Encuesta.js"></script>
 </body>
+
 
 </html>

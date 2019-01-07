@@ -28,7 +28,7 @@ $(document).ready(function(){
             $("#mensajePass").text(Mensaje);
          }else{
             $("#loading").hide();
-            window.location.replace("index.php");
+            window.location.replace("admin.php");
          }
        }).always(function(){
          $("#loading").hide();
