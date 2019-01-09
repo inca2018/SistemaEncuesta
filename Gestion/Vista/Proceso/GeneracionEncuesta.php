@@ -35,14 +35,14 @@
             <h4>Lista de Preguntas:</h4>
             <div class="row">
                 <div class="col-12 col-12-xsmall center_element">
-                    <table class="table table-resposive w-100 table-hover table-sm dt-responsive nowrap" id="tablaPregunta">
+                    <table class="table table-resposive w-100 table-hover table-sm " id="tablaPregunta">
                         <thead class="thead-light text-center">
                             <tr>
-                                <th data-priority="1">#</th>
-                                <th>ESTADO</th>
-                                <th>PREGUNTA</th>
-                                <th>TIPO PREGUNTA</th>
-                                <th>ACCIONES</th>
+                                <th width="5%" data-priority="1">#</th>
+                                <th width="15%">ESTADO</th>
+                                <th width="20%">PREGUNTA</th>
+                                <th width="20%">TIPO PREGUNTA</th>
+                                <th width="20%">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody> </tbody>

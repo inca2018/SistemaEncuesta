@@ -108,14 +108,29 @@ function ajaxEnviarEncuesta(idEncuesta,CadenaClientes) {
         data = JSON.parse(data);
         var Error = data.Error;
         var Mensaje = data.Mensaje;
+        var CodigoEnvio = data.CodigoEnvio;
         if (Error) {
             swal("Error", Mensaje, "error");
         }
         else {
-           /* swal("Enviado!", Mensaje, "success",function(){
-                console.log("hola");
-            });*/
+            EnvioCorreoClientes(CodigoEnvio);
+            console.log("Codigo Envio:"+CodigoEnvio);
+        }
+    });
+}
 
+function EnvioCorreoClientes(CodigoEnvio){
+     $.post("../../Controlador/CEncuesta.php?op=Enviar_Correo_Cliente", {
+        CodigoEnvio: CodigoEnvio,
+    }, function (data, e) {
+        data = JSON.parse(data);
+        var Enviar = data.Enviar;
+        var Mensaje = data.Mensaje;
+        var CodigoEnvio = data.CodigoEnvio;
+        if (!Enviar) {
+            swal("Error", Mensaje, "error");
+        }
+        else {
             swal({
               title: "Encuesta Enviada!",
                text: Mensaje,
@@ -128,4 +143,5 @@ function ajaxEnviarEncuesta(idEncuesta,CadenaClientes) {
         }
     });
 }
+
 init();

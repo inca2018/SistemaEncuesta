@@ -29,7 +29,7 @@ function Recuperar_Datos_Encuesta(){
 }
 
 function Listar_Tipo_Pregunta(){
-	 $.post("../../Controlador/Cpregunta.php?op=listar_tiposPregunta", function (ts) {
+	 $.post("../../Controlador/CPregunta.php?op=listar_tiposPregunta", function (ts) {
       $("#TipoPregunta").empty();
       $("#TipoPregunta").append(ts);
  });

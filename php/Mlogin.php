@@ -25,8 +25,8 @@ class Login{
    }
 
   public function VerificarEncuesta($Envio){
-           $sql="SELECT COUNT(*) as Encontrado FROM resultado where Envio_idEnvio=".$Envio;;
-           return ejecutarConsultaSimpleFila($sql);
+       $sql="SELECT COUNT(*) as Encontrado FROM resultado where Envio_idEnvio=".$Envio;;
+       return ejecutarConsultaSimpleFila($sql);
    }
 }
 ?>

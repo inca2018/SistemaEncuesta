@@ -1,7 +1,5 @@
 <?php
    require_once '../../config/config.php';
-
-
    class MEncuesta{
 
       public function __construct(){
@@ -63,7 +61,13 @@
        }
 
        public function Enviar_Encuesta($idEncuesta,$cadena){
-           $sql="CALL `SP_ENVIAR_ENCUESTA`('$idEncuesta','$cadena');";
+           $sql1=ejecutarConsulta("CALL `SP_ENVIAR_ENCUESTA`('$idEncuesta','$cadena',@p2);");
+           $sql="SELECT @p2 AS `CodigoEnvio`;";
+           return ejecutarConsultaSimpleFila($sql);
+       }
+
+        public function Recuperar_Informacion_Para_Envio($codigoEnvio){
+            $sql="CALL `SP_RECUPERAR_CONTACTOS_ENVIO`('$codigoEnvio');";
            return ejecutarConsulta($sql);
        }
 

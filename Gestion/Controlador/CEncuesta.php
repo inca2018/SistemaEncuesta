@@ -13,6 +13,7 @@
 	$codigoEnvio=isset($_POST["CodigoEnvio"])?limpiarCadena($_POST["CodigoEnvio"]):"";
 	$idPregunta=isset($_POST["idPregunta"])?limpiarCadena($_POST["idPregunta"]):"";
 
+   $CodigoEnvio=isset($_POST["CodigoEnvio"])?limpiarCadena($_POST["CodigoEnvio"]):"";
    $ArregloRespuesta=isset($_POST["ArregloRespuesta"])?limpiarCadena($_POST["ArregloRespuesta"]):"";
 
     function BuscarEstado($reg){
@@ -65,6 +66,36 @@
        }else{
             return '<div class="badge badge-success" title="Encuesta Resuelta"><i class="fa fa-check"></i></div>';
        }
+   }
+
+
+   function  EnviarCorreo($link,$RazonSocial,$ContactoNombre,$ContactoCorreo){
+
+       $asunto = "Encuesta de Satisfacción.";
+        $cuerpo='<html>
+                    <head>
+                        <title>Prueba de correo</title>
+                    </head>
+                    <body>
+                        <div style="text-align: center;">
+                            <h3>Estimado(a)!</h3>
+                            <h2>'.$ContactoNombre.'</h2>
+                            <h4>'.$RazonSocial.'</h4>
+                            <p>
+                                 Te saludamos de parte de QSYSTEM SAC y te invitamos a completar la siguiente encuesta:<br>
+                                    '.$link.'
+                            </p>
+                            <p>Muchas Gracias.</p>
+                        </div>
+                    </body>
+                </html>
+                ';
+       $headers = "MIME-Version: 1.0\r\n";
+       $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+       $headers .= "From: Qsystem Sac <kevin.calderon@qsystem.com.pe>\r\n";
+
+       mail($ContactoCorreo,$asunto,$cuerpo,$headers);
+
    }
 
    switch($_GET['op']){
@@ -242,14 +273,38 @@
 
        case 'Enviar_Encuesta':
 
-             $rspta = array("Mensaje"=>"","Eliminar"=>false,"Error"=>false);
+             $rspta = array("Mensaje"=>"","Enviar"=>false,"Error"=>false,"CodigoEnvio"=>0);
 
-             $rspta['Eliminar']=$mantenimiento->Enviar_Encuesta($idEncuesta,$ArregloClientes);
-
+             $rpt=$mantenimiento->Enviar_Encuesta($idEncuesta,$ArregloClientes);
+             if($rpt['CodigoEnvio']>0){
+                 $rspta['Enviar']=true;
+                 $rspta['CodigoEnvio']=$rpt['CodigoEnvio'];
+             }else{
+                 $rspta['Enviar']=false;
+             }
              /** RECUPERAR ARREGLO Y ENVIAR POR CORREO $ArregloClientes **/
 
-             $rspta['Eliminar']?$rspta['Mensaje']="Encuesta Eliminado.":$rspta['Mensaje']="Encuesta no se pudo eliminar comuniquese con el area de soporte";
+             $rspta['Enviar']?$rspta['Mensaje']="Encuesta Enviada.":$rspta['Mensaje']="Encuesta no se pudo enviar comuniquese con el area de soporte";
              echo json_encode($rspta);
+
+        break;
+
+        case 'Enviar_Correo_Cliente':
+             $rpta = array("Mensaje"=>"","Enviar"=>false,"Error"=>false);
+
+             $rspta=$mantenimiento->Recuperar_Informacion_Para_Envio($codigoEnvio);
+
+            if($rspta){
+                  while ($reg=$rspta->fetch_object()){
+                       EnviarCorreo($reg->link,$reg->RazonSocial,$reg->NombreContacto,$reg->CorreoContacto);
+                    }
+                  $rpta['Enviar']=true;
+            }else{
+                 $rpta['Enviar']=false;
+            }
+
+             $rpta['Enviar']?$rpta['Mensaje']="Encuesta Enviada con Exito!.":$rpta['Mensaje']="Encuesta no se pudo enviar comuniquese con el area de soporte";
+             echo json_encode($rpta);
 
         break;
 

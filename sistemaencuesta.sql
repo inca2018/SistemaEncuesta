@@ -22,12 +22,13 @@ SET time_zone = "+00:00";
 -- Base de datos: `sistemaencuesta`
 --
 
+
 DELIMITER $$
 --
 -- Procedimientos
 --
 DROP PROCEDURE IF EXISTS `SP_CLIENTE_EDITAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CLIENTE_EDITAR` (IN `razonSocial` VARCHAR(150), IN `ruc` CHAR(11), IN `nombreContacto` VARCHAR(150), IN `correoContacto` VARCHAR(150), IN `direccion` TEXT, IN `idClienteU` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_CLIENTE_EDITAR` (IN `razonSocial` VARCHAR(150), IN `ruc` CHAR(11), IN `nombreContacto` VARCHAR(150), IN `correoContacto` VARCHAR(150), IN `direccion` TEXT, IN `idClienteU` INT(11))  NO SQL
 BEGIN
 
 UPDATE `cliente` SET `RazonSocial`=UPPER(razonSocial),`RUC`=ruc,`NombreContacto`=UPPER(nombreContacto),`CorreoContacto`=correoContacto,`Direccion`=UPPER(direccion) WHERE `idCliente`=idClienteU;
@@ -35,7 +36,7 @@ UPDATE `cliente` SET `RazonSocial`=UPPER(razonSocial),`RUC`=ruc,`NombreContacto`
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_CLIENTE_ELIMINAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CLIENTE_ELIMINAR` (IN `idClienteD` INT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_CLIENTE_ELIMINAR` (IN `idClienteD` INT)  NO SQL
 BEGIN
 
 DELETE FROM `cliente` WHERE `idCliente`=idClienteD;
@@ -43,7 +44,7 @@ DELETE FROM `cliente` WHERE `idCliente`=idClienteD;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_CLIENTE_ESTADO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CLIENTE_ESTADO` (IN `idClienteU` INT(11), IN `accion` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_CLIENTE_ESTADO` (IN `idClienteU` INT(11), IN `accion` INT(11))  NO SQL
 BEGIN
 
 IF(accion=1)THEN
@@ -59,7 +60,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_CLIENTE_LISTAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CLIENTE_LISTAR` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_CLIENTE_LISTAR` ()  NO SQL
 BEGIN
 
 SELECT c.idCliente,c.RazonSocial,c.RUC,c.NombreContacto,c.CorreoContacto,c.Direccion,DATE_FORMAT(c.fechaRegistro,"%d/%m/%Y") as fechaRegistro,c.Estado_idEstado,e.nombreEstado,e.idEstado FROM cliente c INNER JOIN estado e WHERE e.idEstado=c.Estado_idEstado ORDER BY c.idCliente DESC;
@@ -67,14 +68,14 @@ SELECT c.idCliente,c.RazonSocial,c.RUC,c.NombreContacto,c.CorreoContacto,c.Direc
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_CLIENTE_RECUPERAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CLIENTE_RECUPERAR` (IN `idClienteR` INT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_CLIENTE_RECUPERAR` (IN `idClienteR` INT)  NO SQL
 BEGIN
 
 SELECT c.idCliente,c.RazonSocial,c.RUC,c.NombreContacto,c.CorreoContacto,c.Direccion,DATE_FORMAT(c.fechaRegistro,"%d/%m/%Y") as fechaRegistro,c.Estado_idEstado FROM cliente c WHERE c.idCliente=idClienteR;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_CLIENTE_REGISTRO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CLIENTE_REGISTRO` (IN `razonSocial` VARCHAR(150), IN `ruc` CHAR(11), IN `nombreContacto` VARCHAR(150), IN `correoContacto` VARCHAR(150), IN `direccion` TEXT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_CLIENTE_REGISTRO` (IN `razonSocial` VARCHAR(150), IN `ruc` CHAR(11), IN `nombreContacto` VARCHAR(150), IN `correoContacto` VARCHAR(150), IN `direccion` TEXT)  NO SQL
 BEGIN
 
 INSERT INTO `cliente`(`idCliente`, `RazonSocial`, `RUC`, `NombreContacto`, `CorreoContacto`, `Direccion`, `fechaRegistro`, `Estado_idEstado`) VALUES (NULL,UPPER(razonSocial),ruc,UPPER(nombreContacto),correoContacto,UPPER(direccion),NOW(),1);
@@ -82,7 +83,7 @@ INSERT INTO `cliente`(`idCliente`, `RazonSocial`, `RUC`, `NombreContacto`, `Corr
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENCUESTA_EDITAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENCUESTA_EDITAR` (IN `TituloU` VARCHAR(150), IN `DetalleU` TEXT, IN `idEncuestaU` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENCUESTA_EDITAR` (IN `TituloU` VARCHAR(150), IN `DetalleU` TEXT, IN `idEncuestaU` INT(11))  NO SQL
 BEGIN
 
 UPDATE `encuesta` SET `TituloEncuesta`=TituloU,`DetalleEncuesta`=DetalleU  WHERE `idEncuesta`=idEncuestaU;
@@ -90,7 +91,7 @@ UPDATE `encuesta` SET `TituloEncuesta`=TituloU,`DetalleEncuesta`=DetalleU  WHERE
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENCUESTA_ELIMINAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENCUESTA_ELIMINAR` (IN `idEncuestaD` INT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENCUESTA_ELIMINAR` (IN `idEncuestaD` INT)  NO SQL
 BEGIN
 
 DELETE FROM `encuesta` WHERE `idEncuesta`=idEncuestaD;
@@ -98,7 +99,7 @@ DELETE FROM `encuesta` WHERE `idEncuesta`=idEncuestaD;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENCUESTA_ESTADO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENCUESTA_ESTADO` (IN `idEncuestaU` INT(11), IN `accion` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENCUESTA_ESTADO` (IN `idEncuestaU` INT(11), IN `accion` INT(11))  NO SQL
 BEGIN
 
 IF(accion=1)THEN
@@ -114,7 +115,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENCUESTA_LISTAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENCUESTA_LISTAR` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENCUESTA_LISTAR` ()  NO SQL
 BEGIN
 
 SELECT en.idEncuesta,en.TituloEncuesta,en.DetalleEncuesta,DATE_FORMAT(en.fechaRegistro,"%d/%m/%Y") AS fechaRegistro,en.Estado_idEstado,e.nombreEstado,e.TipoEstado,
@@ -124,7 +125,7 @@ FROM  encuesta en INNER JOIN estado e ON e.idEstado=en.Estado_idEstado ORDER BY 
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENCUESTA_RECUPERAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENCUESTA_RECUPERAR` (IN `idEncuestaR` INT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENCUESTA_RECUPERAR` (IN `idEncuestaR` INT)  NO SQL
 BEGIN
 
 SELECT e.idEncuesta,e.TituloEncuesta,e.DetalleEncuesta,e.Estado_idEstado FROM encuesta e where e.idEncuesta=idEncuestaR;
@@ -132,14 +133,14 @@ SELECT e.idEncuesta,e.TituloEncuesta,e.DetalleEncuesta,e.Estado_idEstado FROM en
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENCUESTA_REGISTRO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENCUESTA_REGISTRO` (IN `TituloR` VARCHAR(150), IN `DetalleR` TEXT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENCUESTA_REGISTRO` (IN `TituloR` VARCHAR(150), IN `DetalleR` TEXT)  NO SQL
 BEGIN
 
 INSERT INTO `encuesta`(`idEncuesta`, `TituloEncuesta`, `DetalleEncuesta`, `fechaRegistro`, `Estado_idEstado`) VALUES (NULL,TituloR,DetalleR,NOW(),1);
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_ENVIAR_ENCUESTA`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ENVIAR_ENCUESTA` (IN `idEncuestaE` BIGINT(11), IN `lista_clientes` TEXT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_ENVIAR_ENCUESTA` (IN `idEncuestaE` BIGINT(11), IN `lista_clientes` TEXT)  NO SQL
 BEGIN
 
 SET @leng=length(lista_clientes);
@@ -200,7 +201,7 @@ END WHILE;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_LISTAR_CLIENTES_DISPONIBLES`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_CLIENTES_DISPONIBLES` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_LISTAR_CLIENTES_DISPONIBLES` ()  NO SQL
 BEGIN
 
 SELECT * FROM cliente cli WHERE cli.Estado_idEstado=1;
@@ -208,7 +209,7 @@ SELECT * FROM cliente cli WHERE cli.Estado_idEstado=1;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_LISTAR_ENCUESTAS_DISPONIBLES`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ENCUESTAS_DISPONIBLES` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_LISTAR_ENCUESTAS_DISPONIBLES` ()  NO SQL
 BEGIN
 
 SELECT * FROM encuesta en WHERE en.Estado_idEstado=1;
@@ -216,7 +217,7 @@ SELECT * FROM encuesta en WHERE en.Estado_idEstado=1;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_LISTAR_ENVIOS_ACTUALES`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ENVIOS_ACTUALES` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_LISTAR_ENVIOS_ACTUALES` ()  NO SQL
 BEGIN
 
 
@@ -231,7 +232,7 @@ On encu.idEncuesta=env.Encuesta_idEncuesta GROUP BY env.Codigo;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_LISTAR_ENVIOS_REALIZADOS`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_ENVIOS_REALIZADOS` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_LISTAR_ENVIOS_REALIZADOS` ()  NO SQL
 BEGIN
 
 SELECT
@@ -246,14 +247,14 @@ GROUP BY env.Codigo;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_LISTAR_TIPO_PREGUNTA`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_TIPO_PREGUNTA` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_LISTAR_TIPO_PREGUNTA` ()  NO SQL
 BEGIN
 
 SELECT * FROM tipopregunta;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_PREGUNTA_EDITAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PREGUNTA_EDITAR` (IN `idEncuestaU` INT(11), IN `PreguntaU` TEXT, IN `TipoPreU` INT(11), IN `idPreguntaU` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_PREGUNTA_EDITAR` (IN `idEncuestaU` INT(11), IN `PreguntaU` TEXT, IN `TipoPreU` INT(11), IN `idPreguntaU` INT(11))  NO SQL
 BEGIN
 
 UPDATE `pregunta` SET `DetallePregunta`=PreguntaU,`TipoPregunta_idTipoPregunta`=TipoPreU WHERE `idPregunta`=idPreguntaU and `Encuesta_idEncuesta`=idEncuestaU;
@@ -261,7 +262,7 @@ UPDATE `pregunta` SET `DetallePregunta`=PreguntaU,`TipoPregunta_idTipoPregunta`=
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_PREGUNTA_ELIMINAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PREGUNTA_ELIMINAR` (IN `idPreguntaD` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_PREGUNTA_ELIMINAR` (IN `idPreguntaD` INT(11))  NO SQL
 BEGIN
 
 
@@ -270,7 +271,7 @@ DELETE FROM `pregunta` WHERE idPregunta=idPreguntaD;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_PREGUNTA_ESTADO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PREGUNTA_ESTADO` (IN `idPreguntU` INT(11), IN `accion` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_PREGUNTA_ESTADO` (IN `idPreguntU` INT(11), IN `accion` INT(11))  NO SQL
 BEGIN
 
 IF(accion=1)THEN
@@ -286,7 +287,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_PREGUNTA_LISTAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PREGUNTA_LISTAR` (IN `idEncuestaE` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_PREGUNTA_LISTAR` (IN `idEncuestaE` INT(11))  NO SQL
 BEGIN
 
 SELECT pre.idPregunta,pre.DetallePregunta,pre.PesoPregunta,tip.idTipoPregunta,tip.Detalle,pre.Estado_idEstado,e.nombreEstado FROM pregunta pre INNER JOIN tipopregunta tip ON tip.idTipoPregunta=pre.TipoPregunta_idTipoPregunta INNER JOIN estado e On e.idEstado=pre.Estado_idEstado WHERE pre.Encuesta_idEncuesta=idEncuestaE ORDER BY pre.idPregunta DESC;
@@ -294,7 +295,7 @@ SELECT pre.idPregunta,pre.DetallePregunta,pre.PesoPregunta,tip.idTipoPregunta,ti
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_PREGUNTA_RECUPERAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PREGUNTA_RECUPERAR` (IN `idpreguntaER` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_PREGUNTA_RECUPERAR` (IN `idpreguntaER` INT(11))  NO SQL
 BEGIN
 
 
@@ -303,7 +304,7 @@ SELECT pre.idPregunta,pre.DetallePregunta,pre.PesoPregunta,tip.idTipoPregunta,ti
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_PREGUNTA_REGISTRO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PREGUNTA_REGISTRO` (IN `idEncuestaR` INT(11), IN `PreguntaR` TEXT, IN `idTipo` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_PREGUNTA_REGISTRO` (IN `idEncuestaR` INT(11), IN `PreguntaR` TEXT, IN `idTipo` INT(11))  NO SQL
 BEGIN
 
 INSERT INTO `pregunta`(`idPregunta`, `Encuesta_idEncuesta`, `DetallePregunta`, `PesoPregunta`, `TipoPregunta_idTipoPregunta`, `Estado_idEstado`) VALUES (NULL,idEncuestaR,PreguntaR,1,idTipo,1);
@@ -311,7 +312,7 @@ INSERT INTO `pregunta`(`idPregunta`, `Encuesta_idEncuesta`, `DetallePregunta`, `
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RECUPERAR_ENCUESTA_COMPLETA`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RECUPERAR_ENCUESTA_COMPLETA` (IN `idEncuestaR` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RECUPERAR_ENCUESTA_COMPLETA` (IN `idEncuestaR` INT(11))  NO SQL
 BEGIN
 DECLARE done INT DEFAULT FALSE;
 DECLARE v_idPregunta BIGINT;
@@ -356,7 +357,7 @@ SELECT EncuestaNombre,EncuestaDetalle,Preguntas;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RECUPERAR_PARAMETROS_RESULTADO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO` (IN `codigo` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO` (IN `codigo` INT(11))  NO SQL
 BEGIN
 
 SELECT
@@ -371,7 +372,7 @@ INNER JOIN encuesta enc On enc.idEncuesta=env.Encuesta_idEncuesta WHERE env.Codi
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA1`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA1` (IN `codigo` INT(11), IN `idPregunta` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA1` (IN `codigo` INT(11), IN `idPregunta` INT(11))  NO SQL
 BEGIN
 
 SELECT
@@ -391,7 +392,7 @@ env INNER JOIN resultado resu ON env.idEnvios=resu.Envio_idEnvio INNER JOIN preg
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA2`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA2` (IN `codigo` INT(11), IN `idPregunta` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA2` (IN `codigo` INT(11), IN `idPregunta` INT(11))  NO SQL
 BEGIN
 
 SELECT
@@ -409,7 +410,7 @@ env INNER JOIN resultado resu ON env.idEnvios=resu.Envio_idEnvio INNER JOIN preg
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA3`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA3` (IN `codigo` INT(11), IN `idPregunta` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RECUPERAR_PARAMETROS_RESULTADO_PREGUNTA3` (IN `codigo` INT(11), IN `idPregunta` INT(11))  NO SQL
 BEGIN
 
 SELECT
@@ -423,7 +424,7 @@ env INNER JOIN resultado resu ON env.idEnvios=resu.Envio_idEnvio INNER JOIN preg
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_REGISTRO_RESULTADOS`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_REGISTRO_RESULTADOS` (IN `idEnvio` INT(11), IN `Resultados` TEXT)  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_REGISTRO_RESULTADOS` (IN `idEnvio` INT(11), IN `Resultados` TEXT)  NO SQL
 BEGIN
 
 DECLARE Encontro INT(11);
@@ -482,7 +483,7 @@ ELSE
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RESULTADO_POR_CLIENTES`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RESULTADO_POR_CLIENTES` (IN `codigo` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RESULTADO_POR_CLIENTES` (IN `codigo` INT(11))  NO SQL
 BEGIN
 
 select cli.RazonSocial,
@@ -492,7 +493,7 @@ IFNULL((SELECT DATE_FORMAT(resu2.FechaRespuesta,"%d/%m/%Y") FROM resultado resu2
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_RESULTADO_POR_PREGUNTA`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RESULTADO_POR_PREGUNTA` (IN `codigo` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_RESULTADO_POR_PREGUNTA` (IN `codigo` INT(11))  NO SQL
 BEGIN
 
 SELECT
@@ -509,7 +510,7 @@ INNER JOIN tipopregunta tip ON pre.TipoPregunta_idTipoPregunta=tip.idTipoPregunt
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_USUARIO_EDITAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_USUARIO_EDITAR` (IN `nombreUsuarioU` VARCHAR(150), IN `usuarioU` VARCHAR(50), IN `PassU` TEXT, IN `idUsuarioU` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_USUARIO_EDITAR` (IN `nombreUsuarioU` VARCHAR(150), IN `usuarioU` VARCHAR(50), IN `PassU` TEXT, IN `idUsuarioU` INT(11))  NO SQL
 BEGIN
 
 if(PassU='-1')then
@@ -525,7 +526,7 @@ end if;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_USUARIO_ELIMINAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_USUARIO_ELIMINAR` (IN `idUsuarioD` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_USUARIO_ELIMINAR` (IN `idUsuarioD` INT(11))  NO SQL
 BEGIN
 
 DELETE FROM `usuario` WHERE `idUsuario`=idUsuarioD;
@@ -533,7 +534,7 @@ DELETE FROM `usuario` WHERE `idUsuario`=idUsuarioD;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_USUARIO_ESTADO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_USUARIO_ESTADO` (IN `idUsuarioU` INT(11), IN `accion` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_USUARIO_ESTADO` (IN `idUsuarioU` INT(11), IN `accion` INT(11))  NO SQL
 BEGIN
 
 IF(accion=1)THEN
@@ -549,7 +550,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_USUARIO_LISTAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_USUARIO_LISTAR` ()  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_USUARIO_LISTAR` ()  NO SQL
 BEGIN
 
 SELECT u.idUsuario,u.NombreUsuario,u.usuario,u.Estado_idEstado,DATE_FORMAT(u.fechaRegistro,"%d/%m/%Y") as fechaRegistro,e.nombreEstado,e.idEstado FROM usuario u INNER JOIN estado e ON e.idEstado=u.Estado_idEstado ORDER BY u.idUsuario DESC;
@@ -557,14 +558,14 @@ SELECT u.idUsuario,u.NombreUsuario,u.usuario,u.Estado_idEstado,DATE_FORMAT(u.fec
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_USUARIO_RECUPERAR`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_USUARIO_RECUPERAR` (IN `idUsuarioR` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_USUARIO_RECUPERAR` (IN `idUsuarioR` INT(11))  NO SQL
 BEGIN
 
 SELECT u.idUsuario,u.NombreUsuario,u.usuario,u.Estado_idEstado,u.fechaRegistro FROM usuario u WHERE u.idUsuario=idUsuarioR;
 END$$
 
 DROP PROCEDURE IF EXISTS `SP_USUARIO_REGISTRO`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_USUARIO_REGISTRO` (IN `NombreUsuarioR` VARCHAR(150), IN `UsuarioR` VARCHAR(50), IN `PassR` TEXT, IN `estado` INT(11))  NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` PROCEDURE `SP_USUARIO_REGISTRO` (IN `NombreUsuarioR` VARCHAR(150), IN `UsuarioR` VARCHAR(50), IN `PassR` TEXT, IN `estado` INT(11))  NO SQL
 BEGIN
 
 INSERT INTO `usuario`(`idUsuario`, `NombreUsuario`, `usuario`, `password`, `Estado_idEstado`, `fechaRegistro`) VALUES (NULL,UPPER(NombreUsuarioR),UsuarioR,PassR,estado,NOW());
@@ -575,7 +576,7 @@ END$$
 -- Funciones
 --
 DROP FUNCTION IF EXISTS `FN_RECU_PREGUNTA`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `FN_RECU_PREGUNTA` (`Cadena` TEXT) RETURNS TEXT CHARSET latin1 NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` FUNCTION `FN_RECU_PREGUNTA` (`Cadena` TEXT) RETURNS TEXT CHARSET latin1 NO SQL
 BEGIN
 
 
@@ -588,7 +589,7 @@ BEGIN
 END$$
 
 DROP FUNCTION IF EXISTS `FN_RECU_PRE_RESP1`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `FN_RECU_PRE_RESP1` (`Cadena` TEXT) RETURNS TEXT CHARSET latin1 NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` FUNCTION `FN_RECU_PRE_RESP1` (`Cadena` TEXT) RETURNS TEXT CHARSET latin1 NO SQL
 BEGIN
 
  SET @Inicio=1;
@@ -607,7 +608,7 @@ BEGIN
 END$$
 
 DROP FUNCTION IF EXISTS `FN_RECU_PRE_RESP2`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `FN_RECU_PRE_RESP2` (`Cadena` TEXT) RETURNS INT(11) NO SQL
+CREATE DEFINER=`cpses_siu4ezdmdd`@`localhost` FUNCTION `FN_RECU_PRE_RESP2` (`Cadena` TEXT) RETURNS INT(11) NO SQL
 BEGIN
 
  SET @Inicio=1;

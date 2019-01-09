@@ -29,7 +29,7 @@
 <script src="<?php echo $conexionConfig->ruta(); ?>vendor/sweetalert/dist/sweetalert.min.js"></script>
 <script src="<?php echo $conexionConfig->ruta(); ?>assets/js/bootstrap.js"></script>
 
-<script src="<?php echo $conexionConfig->ruta(); ?>vendor/ChartJS/dist/Chart.bundle"></script>
+<script src="<?php echo $conexionConfig->ruta(); ?>vendor/ChartJS/dist/Chart.bundle.js"></script>
 <script src="<?php echo $conexionConfig->ruta(); ?>vendor/dataespanish.js"></script>
 
 <script src="<?php echo $conexionConfig->ruta(); ?>assets/js/main.js"></script>
