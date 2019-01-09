@@ -78,6 +78,7 @@
                     </head>
                     <body>
                         <div style="text-align: center;">
+                             <img src="http://encuesta.qsystemdevs.com/qsystem.png" width="10%" height="10%">
                             <h3>Estimado(a)!</h3>
                             <h2>'.$ContactoNombre.'</h2>
                             <h4>'.$RazonSocial.'</h4>
