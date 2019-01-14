@@ -116,6 +116,9 @@ function MostrarGrafico(CodigoEnvio) {
         data = JSON.parse(data);
         console.log(data);
 
+        if (window.myPie != null) {
+            window.myPie.destroy();
+        }
 
         $("#EncuestaNombre").empty();
         $("#EncuestaEstado").empty();
@@ -177,8 +180,6 @@ function MostrarGrafico(CodigoEnvio) {
                 }
             }
         };
-
-
 
         window.onload = function () {
             var ctx = document.getElementById('chart-area').getContext('2d');

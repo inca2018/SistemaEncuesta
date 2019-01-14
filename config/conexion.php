@@ -71,10 +71,7 @@ class Conexion {
               }
        }
 
-
-
    }
-
 
 
 }

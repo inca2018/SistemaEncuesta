@@ -85,19 +85,19 @@ function AgregarTipoPregunta(Pregunta, Encuesta) {
     }
     else if(Pregunta[2] == 4){
         Encuesta=Encuesta+'<div class="row Titulopregunta center_element m-5">'+
-                             '<div class="col-2 col-2-small">'+
+                             '<div class="col-3 col-3-small">'+
                                 '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion1-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="1" checked>'+
                                 '<label class="texto-12px" for="opcion1-'+Pregunta[0]+'">MALO</label>'+
                              '</div>'+
-                             '<div class="col-2 col-2-small">'+
+                             '<div class="col-3 col-3-small">'+
                                 '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion2-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="2">'+
                                 '<label class="texto-12px"  for="opcion2-'+Pregunta[0]+'">REGULAR</label>'+
                              '</div>'+
-                             '<div class="col-2 col-2-small">'+
+                             '<div class="col-3 col-3-small">'+
                                 '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion3-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="3">'+
                                 '<label class="texto-12px"  for="opcion3-'+Pregunta[0]+'">BUENO</label>'+
                              '</div>'+
-                             '<div class="col-2 col-2-small">'+
+                             '<div class="col-3 col-3-small">'+
                                 '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion4-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="4">'+
                                 '<label class="texto-12px"  for="opcion4-'+Pregunta[0]+'">MUY BUENO</label>'+
                              '</div>'+

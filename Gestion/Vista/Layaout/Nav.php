@@ -30,14 +30,14 @@
 
                 <li> <span class="opener">Gestión de Encuesta</span>
                     <ul>
-                        <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Proceso/Encuestas.php';?>">Creación</a></li>
-                        <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Proceso/EnvioEncuesta.php';?>">Envios</a></li>
+                        <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Proceso/Encuestas.php';?>">Encuestas Generadas</a></li>
+                        <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Proceso/EnvioEncuesta.php';?>">Envios Realizados</a></li>
                     </ul>
                 </li>
                 <li> <span class="opener">Mantenimientos</span>
                     <ul>
                         <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Mantenimiento/Usuario.php';?>">Usuarios</a></li>
-                        <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Mantenimiento/Cliente.php';?>">Clientes</a></li>
+                        <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Mantenimiento/Entidad.php';?>">Clientes</a></li>
                     </ul>
                 </li>
                 <li><a href="<?php echo  $conexionConfig->rutaOP().'Vista/Menu/Logout.php';?>">Salir</a></li>

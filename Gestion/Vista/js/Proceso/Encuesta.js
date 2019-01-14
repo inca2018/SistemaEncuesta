@@ -23,7 +23,7 @@ function RegistroEncuesta(event) {
     if (error == "") {
         $("#ModalEncuesta #cuerpo").addClass("whirl");
         $("#ModalEncuesta #cuerpo").addClass("ringed");
-        setTimeout('AjaxRegistroEncuesta()', 2000);
+        AjaxRegistroEncuesta();
     }
     else {
         notificar_warning("Complete :<br>" + error);
@@ -273,7 +273,7 @@ function Ver(idEncuesta) {
             var Pregunta = ArregloPreguntas[i].split("|");
           Encuesta = AgregarTipoPregunta(Pregunta, Encuesta);
         }
-         Encuesta=Encuesta+"<hr>";
+         Encuesta=Encuesta+"<br><br><br><br>";
         $("#CuerpoEncuesta").html(Encuesta);
     });
 }
@@ -281,73 +281,75 @@ function Ver(idEncuesta) {
 function AgregarTipoPregunta(Pregunta, Encuesta) {
     Encuesta=Encuesta+' <div class="row Titulopregunta center_element">'+
                            '<div class="col-10 col-12-xsmall">'+
-                               '<p align="justify">'+Pregunta[1]+'</p>'+
+                               '<p class="texto-12px" align="justify">'+Pregunta[1]+'</p>'+
                            '</div>'+
                       ' </div>';
     if (Pregunta[2] == 1) {
-       Encuesta=Encuesta+'<div class="row Titulopregunta center_element m-5">'+
+      Encuesta=Encuesta+'<div class="row Titulopregunta center_element m-5">'+
                              '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion1-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'" checked>'+
-                                '<label for="opcion1-'+Pregunta[0]+'">1</label>'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion1-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'" value="1" checked>'+
+                                '<label class="texto-12px" for="opcion1-'+Pregunta[0]+'">1</label>'+
                              '</div>'+
                              '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion2-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'">'+
-                                '<label  for="opcion2-'+Pregunta[0]+'">2</label>'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion2-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'" value="2">'+
+                                '<label class="texto-12px"  for="opcion2-'+Pregunta[0]+'">2</label>'+
                              '</div>'+
                              '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion3-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'">'+
-                                '<label  for="opcion3-'+Pregunta[0]+'">3</label>'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion3-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'" value="3">'+
+                                '<label class="texto-12px"  for="opcion3-'+Pregunta[0]+'">3</label>'+
                              '</div>'+
                              '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion4-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'">'+
-                                '<label  for="opcion4-'+Pregunta[0]+'">4</label>'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion4-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'" value="4">'+
+                                '<label class="texto-12px"  for="opcion4-'+Pregunta[0]+'">4</label>'+
                              '</div>'+
                              '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion5-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'">'+
-                                '<label  for="opcion5-'+Pregunta[0]+'">5</label>'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion5-'+Pregunta[0]+'" name="satisfaccion-'+Pregunta[0]+'" value="5">'+
+                                '<label class="texto-12px"  for="opcion5-'+Pregunta[0]+'">5</label>'+
                              '</div>' +
                         '</div>';
     }
     else if (Pregunta[2] == 2) {
       Encuesta=Encuesta+' <div class="row Titulopregunta center_element m-5">'+
                              '<div class="col-4 col-4-small">'+
-                                '<input type="radio" id="opcionA-'+Pregunta[0]+'" name="condicion-'+Pregunta[0]+'" checked>'+
-                                '<label  for="opcionA-'+Pregunta[0]+'">SI</label>'+
+                                '<input class="pregunta2" data-tipo="2" data-pregunta="'+Pregunta[0]+'" type="radio" id="opcionA-'+Pregunta[0]+'" name="condicion-'+Pregunta[0]+'" value="1" checked>'+
+                                '<label class="texto-12px"  for="opcionA-'+Pregunta[0]+'">SI</label>'+
                              '</div>'+
                              '<div class="col-4 col-4-small">'+
-                                '<input type="radio" id="opcionB-'+Pregunta[0]+'" name="condicion-'+Pregunta[0]+'">'+
-                                '<label  for="opcionB-'+Pregunta[0]+'">NO</label> '+
+                                '<input class="pregunta2" data-tipo="2" data-pregunta="'+Pregunta[0]+'" type="radio" id="opcionB-'+Pregunta[0]+'" name="condicion-'+Pregunta[0]+'" value="2">'+
+                                '<label class="texto-12px"  for="opcionB-'+Pregunta[0]+'">NO</label> '+
                              '</div>'+
                              '<div class="col-4 col-4-small">'+
-                                '<input type="radio" id="opcionC-'+Pregunta[0]+'" name="condicion-'+Pregunta[0]+'">'+
-                                '<label for="opcionC-'+Pregunta[0]+'">NO SABE/NO OPINA</label>'+
+                                '<input class="pregunta2" data-tipo="2" data-pregunta="'+Pregunta[0]+'" type="radio" id="opcionC-'+Pregunta[0]+'" name="condicion-'+Pregunta[0]+'" value="3">'+
+                                '<label class="texto-12px" for="opcionC-'+Pregunta[0]+'">NO SABE/NO OPINA</label>'+
                              '</div>'+
                         '</div>';
     }
     else if (Pregunta[2] == 3) {
         Encuesta=Encuesta+'<div class="row Titulopregunta center_element m-5">'+
                                  '<div class="col-10 col-12-xsmall">'+
-                                   ' <textarea placeholder="" rows="2" name="descripcion-'+Pregunta[0]+'"></textarea>'+
+                                   ' <textarea class="pregunta3" data-tipo="3" data-pregunta="'+Pregunta[0]+'" required placeholder="Ingrese Respuesta" rows="2" name="descripcion-'+Pregunta[0]+'"></textarea>'+
                                 '</div> '+
                             '</div>';
     }else if(Pregunta[2] == 4){
         Encuesta=Encuesta+'<div class="row Titulopregunta center_element m-5">'+
-                             '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion1-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" checked>'+
-                                '<label for="opcion1-'+Pregunta[0]+'">MALO</label>'+
+                             '<div class="col-3 col-3-small">'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion1-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="1" checked>'+
+                                '<label class="texto-12px" for="opcion1-'+Pregunta[0]+'">MALO</label>'+
                              '</div>'+
-                             '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion2-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'">'+
-                                '<label  for="opcion2-'+Pregunta[0]+'">REGULAR</label>'+
+                             '<div class="col-3 col-3-small">'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion2-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="2">'+
+                                '<label class="texto-12px"  for="opcion2-'+Pregunta[0]+'">REGULAR</label>'+
                              '</div>'+
-                             '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion3-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'">'+
-                                '<label  for="opcion3-'+Pregunta[0]+'">BUENO</label>'+
+                             '<div class="col-3 col-3-small">'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion3-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="3">'+
+                                '<label class="texto-12px"  for="opcion3-'+Pregunta[0]+'">BUENO</label>'+
                              '</div>'+
-                             '<div class="col-2 col-2-small">'+
-                                '<input type="radio" id="opcion4-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'">'+
-                                '<label  for="opcion4-'+Pregunta[0]+'">MUY BUENO</label>'+
-                             '</div></div>';
+                             '<div class="col-3 col-3-small">'+
+                                '<input class="pregunta1" data-tipo="1" data-pregunta="'+Pregunta[0]+'"  type="radio" id="opcion4-'+Pregunta[0]+'" name="satisfaccion2-'+Pregunta[0]+'" value="4">'+
+                                '<label class="texto-12px"  for="opcion4-'+Pregunta[0]+'">MUY BUENO</label>'+
+                             '</div>'+
+
+                        '</div>';
     }
 
     return Encuesta;

@@ -28,17 +28,18 @@
     </div>
     <hr>
     <div class="row aln-center">
-        <div class="col-6 col-12-xsmall">
+        <div class="col-5 col-12-xsmall">
             <h4>Grafico Estadistico de Resultados:</h4>
-            <canvas style="margin-top:100px;" id="chart-area"></canvas>
+            <canvas style="margin-top:50px;" id="chart-area"></canvas>
         </div>
-        <div class="col-6 col-12-xsmall">
+        <div class="col-7 col-12-xsmall">
             <h4>Resultado por Clientes:</h4>
             <table class="table table-resposive table-hover table-sm dt-responsive" id="tablaClientesResultados">
                 <thead class="thead-light text-center">
                     <tr>
                         <th width="10%" data-priority="1">#</th>
-                        <th width="60%">CLIENTE</th>
+                        <th width="30%">ENTIDAD</th>
+                        <th width="30%">CLIENTE</th>
                         <th width="20%">FECHA DE RESULTADO</th>
                         <th width="10%">RESULTADO</th>
                     </tr>

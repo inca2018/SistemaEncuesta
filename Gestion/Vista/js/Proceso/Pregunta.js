@@ -47,7 +47,7 @@ function RegistroPregunta(event) {
     if (error == "") {
         $("#ModalPregunta #cuerpo").addClass("whirl");
         $("#ModalPregunta #cuerpo").addClass("ringed");
-        setTimeout('AjaxRegistroPregunta()', 2000);
+        AjaxRegistroPregunta();
     }
     else {
         notificar_warning("Complete :<br>" + error);
@@ -172,7 +172,7 @@ function RecuperarPregunta(idPregunta) {
         $("#idPregunta").val(data.idPregunta);
         $("#PreguntaTitulo").val(data.DetallePregunta);
 
-         $.post("../../Controlador/Cpregunta.php?op=listar_tiposPregunta", function (ts) {
+         $.post("../../Controlador/CPregunta.php?op=listar_tiposPregunta", function (ts) {
             $("#TipoPregunta").empty();
             $("#TipoPregunta").append(ts);
             $("#TipoPregunta").val(data.idTipoPregunta);

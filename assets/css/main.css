@@ -1,14 +1,6 @@
 @import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
 
-
-
-
-.Titulopregunta{
-    margin: 5px !inportant;
-    font-size: 12px !important;
-    margin-top: 5px !important;
-}
 .m-5{
     margin: 1em !important;
 
@@ -18,9 +10,6 @@
     text-align: center !important;
 }
 
-.texto-12px{
-    font-size: 14px !important;
-}
 
 
 /*
@@ -340,19 +329,16 @@ input, select, textarea {
 	.center_element{
        justify-content: center;
        align-content: center;
-       text-align: center;
        align-self: center;
 		}
    .right_element{
        justify-content:flex-end;
        align-content: flex-end;
-       text-align: right;
        align-self: flex-end;
 		}
     .left_element{
        justify-content: flex-start;
        align-content: flex-start;
-       text-align: left;
        align-self: flex-start;
 		}
 

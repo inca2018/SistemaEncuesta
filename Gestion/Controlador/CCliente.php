@@ -6,12 +6,11 @@
 
 
 	$idCliente=isset($_POST["idCliente"])?limpiarCadena($_POST["idCliente"]):"";
-	$ClienteRazonSocial=isset($_POST["ClienteRazonSocial"])?limpiarCadena($_POST["ClienteRazonSocial"]):"";
-	$ClienteRUC=isset($_POST["ClienteRUC"])?limpiarCadena($_POST["ClienteRUC"]):"";
 	$ClienteContacto=isset($_POST["ClienteContacto"])?limpiarCadena($_POST["ClienteContacto"]):"";
 	$ClienteCorreo=isset($_POST["ClienteCorreo"])?limpiarCadena($_POST["ClienteCorreo"]):"";
-   $ClienteDireccion=isset($_POST["ClienteDireccion"])?limpiarCadena($_POST["ClienteDireccion"]):"";
+   $ClienteCargo=isset($_POST["ClienteCargo"])?limpiarCadena($_POST["ClienteCargo"]):"";
 
+   $idEntidad=isset($_POST["idEntidad"])?limpiarCadena($_POST["idEntidad"]):"";
 	//$login_idLog=$_SESSION['idUsuario'];
 
     function BuscarEstado($reg){
@@ -41,7 +40,7 @@
          if(empty($idCliente)){
 
                 /*--  validar si el numero de la factura ya se encuentra emitido  --*/
-                $validarCliente=$mantenimiento->ValidarCliente($ClienteRUC,$idCliente);
+                $validarCliente=$mantenimiento->ValidarCliente($ClienteContacto,$idEntidad,$idCliente);
                 if($validarCliente>0){
                     $rspta["Mensaje"].="El Cliente ya se encuentra Registrado ";
                     $rspta["Error"]=true;
@@ -49,7 +48,7 @@
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Cliente.";
                 }else{
-                    $RespuestaRegistro=$mantenimiento->RegistroCliente($idCliente,$ClienteRazonSocial,$ClienteRUC,$ClienteContacto,$ClienteCorreo,$ClienteDireccion);
+                    $RespuestaRegistro=$mantenimiento->RegistroCliente($idCliente,$ClienteContacto,$ClienteCorreo,$ClienteCargo,$idEntidad);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Cliente se registro Correctamente.";
@@ -60,7 +59,7 @@
                 }
             }else{
 
-                 $validarCliente=$mantenimiento->ValidarCliente($ClienteRUC,$idCliente);
+                 $validarCliente=$mantenimiento->ValidarCliente($ClienteContacto,$idEntidad,$idCliente);
                 if($validarCliente>0){
                     $rspta["Mensaje"].="El Cliente ya se encuentra Registrado ";
                     $rspta["Error"]=true;
@@ -69,7 +68,7 @@
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Cliente.";
                 }else{
 
-                    $RespuestaRegistro=$mantenimiento->RegistroCliente($idCliente,$ClienteRazonSocial,$ClienteRUC,$ClienteContacto,$ClienteCorreo,$ClienteDireccion);
+                    $RespuestaRegistro=$mantenimiento->RegistroCliente($idCliente,$ClienteContacto,$ClienteCorreo,$ClienteCargo,$idEntidad);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Cliente se Actualizo Correctamente.";
@@ -85,16 +84,15 @@
 
 
 		case 'Listar_Cliente':
-
-         $rspta=$mantenimiento->Listar_Cliente();
+         $rspta=$mantenimiento->Listar_Cliente($idEntidad);
          $data= array();
          while ($reg=$rspta->fetch_object()){
          $data[]=array(
                "0"=>'',
                "1"=>BuscarEstado($reg),
-               "2"=>$reg->RUC,
-               "3"=>$reg->RazonSocial,
-               "4"=>$reg->NombreContacto,
+               "2"=>$reg->NombreContacto,
+               "3"=>$reg->CorreoContacto,
+               "4"=>$reg->Cargo,
                "5"=>$reg->fechaRegistro,
                "6"=>BuscarAccion($reg)
             );
@@ -145,6 +143,10 @@
 
       case 'RecuperarInformacion_Cliente':
 			$rspta=$mantenimiento->Recuperar_Cliente($idCliente);
+         echo json_encode($rspta);
+      break;
+       case 'RecuperarEntidadDatos':
+        $rspta=$mantenimiento->RecuperarEntidadDatos($idEntidad);
          echo json_encode($rspta);
       break;
 

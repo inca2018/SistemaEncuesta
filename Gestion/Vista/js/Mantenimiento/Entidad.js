@@ -1,36 +1,19 @@
-var tablaCliente;
+var tablaEntidad;
 
 function init() {
     Iniciar_Componentes();
-    Listar_Cliente();
-    Recuperar_Entidad();
+    Listar_Entidad();
 }
 
 function Iniciar_Componentes() {
     //var fecha=hoyFecha();
     //$('#date_fecha_comprobante').datepicker('setDate',fecha);
-    $("#FormularioCliente").on("submit", function (e) {
-        RegistroCliente(e);
+    $("#FormularioEntidad").on("submit", function (e) {
+        RegistroEntidad(e);
     });
 }
 
-function Recuperar_Entidad() {
-    var idEntidad=$("#idEntidad").val();
-    //solicitud de recuperar Proveedor
-    $.post("../../Controlador/CCliente.php?op=RecuperarEntidadDatos", {
-        "idEntidad": idEntidad
-    }, function (data, status) {
-        data = JSON.parse(data);
-        console.log(data);
-        $("#EntidadRUC").empty();
-        $("#EntidadNombre").empty();
-        $("#EntidadRUC").append(data.RUC);
-        $("#EntidadNombre").append(data.RazonSocial);
-
-    });
-}
-
-function RegistroCliente(event) {
+function RegistroEntidad(event) {
     //cargar(true);
     event.preventDefault(); //No se activará la acción predeterminada del evento
     var error = "";
@@ -40,22 +23,20 @@ function RegistroCliente(event) {
         }
     });
     if (error == "") {
-        $("#ModalCliente #cuerpo").addClass("whirl");
-        $("#ModalCliente #cuerpo").addClass("ringed");
-        AjaxRegistroCliente();
+        $("#ModalEntidad #cuerpo").addClass("whirl");
+        $("#ModalEntidad #cuerpo").addClass("ringed");
+        AjaxRegistroEntidad();
     }
     else {
         notificar_warning("Complete :<br>" + error);
     }
 }
 
-function AjaxRegistroCliente() {
-    var idEntidad=$("#idEntidad").val();
-    var formData = new FormData($("#FormularioCliente")[0]);
-     formData.append("idEntidad",idEntidad);
+function AjaxRegistroEntidad() {
+    var formData = new FormData($("#FormularioEntidad")[0]);
     console.log(formData);
     $.ajax({
-        url: "../../Controlador/CCliente.php?op=AccionCliente"
+        url: "../../Controlador/CEntidad.php?op=AccionEntidad"
         , type: "POST"
         , data: formData
         , contentType: false
@@ -66,28 +47,27 @@ function AjaxRegistroCliente() {
             var Mensaje = data.Mensaje;
             var Error = data.Registro;
             if (!Error) {
-                $("#ModalCliente #cuerpo").removeClass("whirl");
-                $("#ModalCliente #cuerpo").removeClass("ringed");
-                $("#ModalCliente").modal("hide");
+                $("#ModalEntidad #cuerpo").removeClass("whirl");
+                $("#ModalEntidad #cuerpo").removeClass("ringed");
+                $("#ModalEntidad").modal("hide");
                 swal("Error:", Mensaje);
-                LimpiarCliente();
-                tablaCliente.ajax.reload();
+                LimpiarEntidad();
+                tablaEntidad.ajax.reload();
             }
             else {
-                $("#ModalCliente #cuerpo").removeClass("whirl");
-                $("#ModalCliente #cuerpo").removeClass("ringed");
-                $("#ModalCliente").modal("hide");
+                $("#ModalEntidad #cuerpo").removeClass("whirl");
+                $("#ModalEntidad #cuerpo").removeClass("ringed");
+                $("#ModalEntidad").modal("hide");
                 swal("Acción:", Mensaje);
-                LimpiarCliente();
-                tablaCliente.ajax.reload();
+                LimpiarEntidad();
+                tablaEntidad.ajax.reload();
             }
         }
     });
 }
 
-function Listar_Cliente() {
-    var idEntidad=$("#idEntidad").val();
-    tablaCliente = $('#tablaCliente').dataTable({
+function Listar_Entidad() {
+    tablaEntidad = $('#tablaEntidad').dataTable({
         "aProcessing": true
         , "aServerSide": true
         , "processing": true
@@ -101,7 +81,7 @@ function Listar_Cliente() {
         , "columnDefs": [
             {
                 "className": "text-center"
-                , "targets": [0, 1, 3, 4, 5,6]
+                , "targets": [0, 1, 3, 4, 5]
             }
             , {
                 "className": "text-left"
@@ -112,10 +92,9 @@ function Listar_Cliente() {
             }
          , ]
         , "ajax": { //Solicitud Ajax Servidor
-            url: '../../Controlador/CCliente.php?op=Listar_Cliente'
+            url: '../../Controlador/CEntidad.php?op=Listar_Entidad'
             , type: "POST"
             , dataType: "JSON"
-            ,data:{idEntidad:idEntidad}
             , error: function (e) {
                 console.log(e.responseText);
             }
@@ -124,8 +103,8 @@ function Listar_Cliente() {
         oLanguage: español
     , }).DataTable();
     //Aplicar ordenamiento y autonumeracion , index
-    tablaCliente.on('order.dt search.dt', function () {
-        tablaCliente.column(0, {
+    tablaEntidad.on('order.dt search.dt', function () {
+        tablaEntidad.column(0, {
             search: 'applied'
             , order: 'applied'
         }).nodes().each(function (cell, i) {
@@ -134,61 +113,60 @@ function Listar_Cliente() {
     }).draw();
 }
 
-function NuevoCliente() {
-    $("#ModalCliente").modal({
+function NuevoEntidad() {
+    $("#ModalEntidad").modal({
         backdrop: 'static'
         , keyboard: false
     });
-    $("#ModalCliente").modal("show");
-    $("#tituloModalCliente").empty();
-    $("#tituloModalCliente").append("Registro de Cliente");
+    $("#ModalEntidad").modal("show");
+    $("#tituloModalEntidad").empty();
+    $("#tituloModalEntidad").append("Registro de Entidad");
 }
 
-function EditarCliente(idCliente) {
-    $("#ModalCliente").modal({
+function EditarEntidad(idEntidad) {
+    $("#ModalEntidad").modal({
         backdrop: 'static'
         , keyboard: false
     });
-    $("#ModalCliente").modal("show");
-    $("#tituloModalCliente").empty();
-    $("#tituloModalCliente").append("Edición de Cliente");
-    RecuperarCliente(idCliente);
+    $("#ModalEntidad").modal("show");
+    $("#tituloModalEntidad").empty();
+    $("#tituloModalEntidad").append("Edición de Entidad");
+    RecuperarEntidad(idEntidad);
 }
 
-function RecuperarCliente(idCliente) {
+function RecuperarEntidad(idEntidad) {
     //solicitud de recuperar Proveedor
-    $.post("../../Controlador/CCliente.php?op=RecuperarInformacion_Cliente", {
-        "idCliente": idCliente
+    $.post("../../Controlador/CEntidad.php?op=RecuperarInformacion_Entidad", {
+        "idEntidad": idEntidad
     }, function (data, status) {
         data = JSON.parse(data);
         console.log(data);
-        $("#idCliente").val(data.idCliente);
-        $("#ClienteRazonSocial").val(data.RazonSocial);
-        $("#ClienteRUC").val(data.RUC);
-        $("#ClienteContacto").val(data.NombreContacto);
-        $("#ClienteCorreo").val(data.CorreoContacto);
-        $("#ClienteDireccion").val(data.Direccion);
-        $("#ClienteCargo").val(data.Cargo);
+        $("#idEntidad").val(data.idEntidad);
+        $("#EntidadRazonSocial").val(data.RazonSocial);
+        $("#EntidadRUC").val(data.RUC);
+        $("#EntidadContacto").val(data.NombreContacto);
+        $("#EntidadCorreo").val(data.CorreoContacto);
+        $("#EntidadDireccion").val(data.Direccion);
     });
 }
 
-function EliminarCliente(idCliente) {
+function EliminarEntidad(idEntidad) {
     swal({
         title: "Eliminar?"
-        , text: "Esta Seguro que desea Eliminar Cliente!"
+        , text: "Esta Seguro que desea Eliminar Entidad!"
         , type: "warning"
         , showCancelButton: true
         , confirmButtonColor: "#DD6B55"
         , confirmButtonText: "Si, Eliminar!"
         , closeOnConfirm: false
     }, function () {
-        ajaxEliminarCliente(idCliente);
+        ajaxEliminarEntidad(idEntidad);
     });
 }
 
-function ajaxEliminarCliente(idCliente) {
-    $.post("../../Controlador/CCliente.php?op=Eliminar_Cliente", {
-        idCliente: idCliente
+function ajaxEliminarEntidad(idEntidad) {
+    $.post("../../Controlador/CEntidad.php?op=Eliminar_Entidad", {
+        idEntidad: idEntidad
     }, function (data, e) {
         data = JSON.parse(data);
         var Error = data.Error;
@@ -198,28 +176,28 @@ function ajaxEliminarCliente(idCliente) {
         }
         else {
             swal("Eliminado!", Mensaje, "success");
-            tablaCliente.ajax.reload();
+            tablaEntidad.ajax.reload();
         }
     });
 }
 
-function HabilitarCliente(idCliente) {
+function HabilitarEntidad(idEntidad) {
     swal({
         title: "Habilitar?"
-        , text: "Esta Seguro que desea Habilitar Cliente!"
+        , text: "Esta Seguro que desea Habilitar Entidad!"
         , type: "info"
         , showCancelButton: true
         , confirmButtonColor: "#DD6B55"
         , confirmButtonText: "Si, Habilitar!"
         , closeOnConfirm: false
     }, function () {
-        ajaxHabilitarCliente(idCliente);
+        ajaxHabilitarEntidad(idEntidad);
     });
 }
 
-function ajaxHabilitarCliente(idCliente) {
-    $.post("../../Controlador/CCliente.php?op=Habilitar_Cliente", {
-        idCliente: idCliente
+function ajaxHabilitarEntidad(idEntidad) {
+    $.post("../../Controlador/CEntidad.php?op=Habilitar_Entidad", {
+        idEntidad: idEntidad
     }, function (data, e) {
         data = JSON.parse(data);
         var Error = data.Error;
@@ -229,28 +207,28 @@ function ajaxHabilitarCliente(idCliente) {
         }
         else {
             swal("Habilitado!", Mensaje, "success");
-            tablaCliente.ajax.reload();
+            tablaEntidad.ajax.reload();
         }
     });
 }
 
-function InabilitarCliente(idCliente) {
+function InabilitarEntidad(idEntidad) {
     swal({
         title: "Inhabilitar?"
-        , text: "Esta Seguro que desea Inhabilitar Cliente!"
+        , text: "Esta Seguro que desea Inhabilitar Entidad!"
         , type: "info"
         , showCancelButton: true
         , confirmButtonColor: "#DD6B55"
         , confirmButtonText: "Si, Inhabilitar!"
         , closeOnConfirm: false
     }, function () {
-        ajaxInHabilitarCliente(idCliente);
+        ajaxInHabilitarEntidad(idEntidad);
     });
 }
 
-function ajaxInHabilitarCliente(idCliente) {
-    $.post("../../Controlador/CCliente.php?op=Inhabilitar_Cliente", {
-        idCliente: idCliente
+function ajaxInHabilitarEntidad(idEntidad) {
+    $.post("../../Controlador/CEntidad.php?op=Inhabilitar_Entidad", {
+        idEntidad: idEntidad
     }, function (data, e) {
         data = JSON.parse(data);
         var Error = data.Error;
@@ -260,21 +238,25 @@ function ajaxInHabilitarCliente(idCliente) {
         }
         else {
             swal("Inhabilitado!", Mensaje, "success");
-            tablaCliente.ajax.reload();
+            tablaEntidad.ajax.reload();
         }
     });
 }
 
-function LimpiarCliente() {
-    $('#FormularioCliente')[0].reset();
-    $("#idCliente").val("");
+function LimpiarEntidad() {
+    $('#FormularioEntidad')[0].reset();
+    $("#idEntidad").val("");
 }
 
-function volver(){
-     $.redirect('../Mantenimiento/Entidad.php');
-}
 function Cancelar() {
-    LimpiarCliente();
-    $("#ModalCliente").modal("hide");
+    LimpiarEntidad();
+    $("#ModalEntidad").modal("hide");
 }
+
+function Clientes(idEntidad){
+    $.redirect('../Mantenimiento/Cliente.php', {
+        'idEntidad': idEntidad
+    });
+}
+
 init();

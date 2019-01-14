@@ -25,7 +25,7 @@ function RegistroUsuario(event) {
     if (error == "") {
         $("#ModalUsuario #cuerpo").addClass("whirl");
         $("#ModalUsuario #cuerpo").addClass("ringed");
-        setTimeout('AjaxRegistroUsuario()', 2000);
+        AjaxRegistroUsuario();
     }
     else {
         notificar_warning("Complete :<br>" + error);

@@ -12,10 +12,11 @@
     <meta name="description" content="System">
     <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
     <title>Encuesta</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="vendor/datatables.css" />
     <link rel="stylesheet" href="vendor/sweetalert/dist/sweetalert.css" />
-
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -24,45 +25,81 @@
         $idEnvio=$_GET['env'];
         $respuesta=$gestion->VerificarEncuesta($idEnvio);
         if($respuesta["Encontrado"]>0){
-            echo '<div class="row m-5 center_element ">
-        <div class="col-6 col-12-small">
-            <img class="mt-4" src="qsystem.png" width="60%" height="80%">
-            <h3 class="mt-4">LA ENCUESTA YA SE REALIZO!</h3>
+            echo '<div class="row">
+        <div class="col-12 col-12-small">
+            <div class="row cabecera">
+                <div class=" col-3 col-10-xsmall col-10-small">
+                    <img class="logo" src="images/logo2.png"> </div>
+            </div>
+            <div class="row cabecera">
+                <div class="col-3 col-10-xsmall col-10-small">
+                    <h4 id="tituloEncuesta"></h4>
+                </div>
+            </div>
+            <div class="row center_element" style="text-align: center;">
+                <h3 class="col-6 m-5">YA SE REALIZO LA ENCUESTA!</h3>
+            </div>
         </div>
     </div>';
 
         }else{
     ?>
 
-    <form id="FormularioEncuesta" method="POST" autocomplete="off">
+    <form id="FormularioEncuesta" method="POST" autocomplete="off" style="margin:0;">
         <input type="hidden" id="idEncuesta" value="<?php echo $_GET['enc'];?>">
         <input type="hidden" id="idEnviado" value="<?php echo $_GET['env'];?>">
         <input type="hidden" id="idCliente" value="<?php echo $_GET['cli'];?>">
-        <div class="row m-5">
-            <div class="col-12">
-                <div class="row gtr-uniform">
-                    <div class="col-12 col-12-xsmall center_element">
-                        <h2 id="tituloEncuesta"></h2>
-                        <p id="DetalleEncuesta"></p>
+        <div class="row cabecera">
+            <div class=" col-3 col-10-xsmall col-10-small">
+                <img class="logo" src="images/logo2.png"> </div>
+        </div>
+        <div class="row cabecera">
+            <div class="col-3 col-10-xsmall col-10-small">
+                <h4 id="tituloEncuesta"></h4>
+            </div>
+        </div>
+
+        <img class="componente" src="images/componente1.png" alt="">
+        <div class="row center_element" style="margin-left:0;">
+
+            <div id="contenedor" class="col-8 col-10-xsmall col-10-small">
+                <div class="row center_element">
+                    <div class="col-10 col-10-xsmall" style="margin-top:20px;">
+                        <em>
+                            <p id="DetalleEncuesta"></p>
+                        </em>
                     </div>
                 </div>
-                <hr>
-                <div id="CuerpoEncuesta">
 
+                <div class="row">
+                    <div id="CuerpoEncuesta" class="col-12 col-12-small col-xsmall">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row center_element">
-            <div class="col-3">
-              <button class="button primary" type="submit">ENVIAR RESULTADOS</button>
+        <div class="row pie_pagina">
+            <div class="col-4 col-6-small col-6-xsmall boton">
+                <button class="button primary boton_envio" type="submit">ENVIAR RESULTADOS</button>
             </div>
         </div>
+
     </form>
 
-    <div id="ModuloRespuesta" class="row m-5 center_element" style="display:none;">
-         <div class="col-6 col-12-small">
-            <img class="mt-4" src="qsystem.png" width="60%" height="80%">
-            <h3  class="mt-4">GRACIAS POR SUS RESPUESTAS, SE ENVIO LOS RESULTADOS A NUESTRO SISTEMA.</h3>
+    <div id="ModuloRespuesta" class="" style="display:none;">
+        <div class="col-12 col-12-small">
+            <div class="row cabecera">
+                <div class=" col-3 col-10-xsmall col-10-small">
+                    <img class="logo" src="images/logo2.png"> </div>
+            </div>
+            <div class="row cabecera">
+                <div class="col-3 col-10-xsmall col-10-small">
+                    <h4 id="tituloEncuesta"></h4>
+                </div>
+            </div>
+            <div class="row center_element" style="text-align: center;">
+                <h3 class="m-5 col-6">GRACIAS POR SUS RESPUESTAS, SE ENVIO LOS RESULTADOS A NUESTRO SISTEMA.</h3>
+            </div>
+
         </div>
     </div>
 
@@ -72,10 +109,21 @@
     }else{
 
     ?>
-    <div class="row m-5 center_element ">
-        <div cl  ass="col-6 col-12-small">
-            <img class="mt-4" src="qsystem.png" width="60%" height="80%">
-            <h3  class="mt-4">SE ENCONTRO UN ERROR EN LA BUSQUEDA DE LA ENCUESTA</h3>
+    <div class="row ">
+       <div class="col-12 col-12-small">
+            <div class="row cabecera">
+                <div class=" col-3 col-10-xsmall col-10-small">
+                    <img class="logo" src="images/logo2.png"> </div>
+            </div>
+            <div class="row cabecera">
+                <div class="col-3 col-10-xsmall col-10-small">
+                    <h4 id="tituloEncuesta"></h4>
+                </div>
+            </div>
+            <div class="row center_element" style="text-align: center;">
+                <h3 class="m-5 col-6">SE ENCONTRO UN ERROR EN LA BUSQUEDA DE LA ENCUESTA</h3>
+            </div>
+
         </div>
 
     </div>

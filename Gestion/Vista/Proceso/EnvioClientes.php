@@ -27,8 +27,8 @@
                     <thead class="thead-light text-center">
                         <tr>
                             <th width="10%" data-priority="1">#</th>
+                            <th width="30%">ENTIDAD</th>
                             <th width="30%">CLIENTE</th>
-                            <th width="30%">RUC</th>
                             <th width="30%">ACCIONES</th>
                         </tr>
                     </thead>

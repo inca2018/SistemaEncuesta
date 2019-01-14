@@ -72,13 +72,13 @@
    function  EnviarCorreo($link,$RazonSocial,$ContactoNombre,$ContactoCorreo){
 
        $asunto = "Encuesta de Satisfacción.";
-        $cuerpo='<html>
+       /*$cuerpo='<html>
                     <head>
                         <title>Prueba de correo</title>
                     </head>
                     <body>
                         <div style="text-align: center;">
-                             <img src="http://encuesta.qsystemdevs.com/qsystem.png" width="10%" height="10%">
+                             <!-- <img src="http://www.encuesta.qsystemdevs.com/qsystem.png" width="10%" height="10%"> -->
                             <h3>Estimado(a)!</h3>
                             <h2>'.$ContactoNombre.'</h2>
                             <h4>'.$RazonSocial.'</h4>
@@ -90,10 +90,92 @@
                         </div>
                     </body>
                 </html>
-                ';
+                ';*/
+       $cuerpo ='<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Encuesta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body style="margin: 0; padding: 0;" bgcolor="#ffffff">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500" style="border-collapse: collapse;">
+        <tr>
+            <td>
+                <table bgcolor="#e0dcdc" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                    <tr>
+                        <td align="center" bgcolor="#f1f1f1">
+                            <img src="http://encuesta.qsystemdevs.com/images/componente1.png" alt="" width="100%" height="20%" style="display: block;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" bgcolor="#f1f1f1" style="padding-right:20px;">
+                            <img class="image_logo" src="http://encuesta.qsystemdevs.com/images/logo1.png" width="20%" height="20%" style="display: block;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#f1f1f1" style="padding:20px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: "Roboto", sans-serif;">
+                                <tr>
+                                    <td align="left" bgcolor="#ffffff" style="padding:10px;font-size: 18px;font-weight: 600;">
+                                        HOLA
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding:5px;font-size: 18px; ">
+                                        '.$ContactoNombre.'
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding:5px;font-size: 14px;font-weight: 600;">
+                                        '.$RazonSocial.'
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td align="left" bgcolor="#ffffff" style="padding:10px;font-size: 16px; ">
+                                        Te saludamos de parte de Q SYSTEM SAC y te invitamos a completar la siguiente encuesta:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding:10px;font-size: 16px; ">
+                                        '.$link.'
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding:10px;font-size: 16px; ">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding:10px;font-size: 16px; ">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding:10px;font-size: 20px; ">
+                                        Muchas Gracias
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
+';
+
        $headers = "MIME-Version: 1.0\r\n";
        $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-       $headers .= "From: Qsystem Sac <kevin.calderon@qsystem.com.pe>\r\n";
+       $headers .= "From: Qsystem Sac <comunicacion.corporativa@qsystem.com.pe>\r\n";
 
        mail($ContactoCorreo,$asunto,$cuerpo,$headers);
 
@@ -180,7 +262,7 @@
          $data[]=array(
                "0"=>'',
                "1"=>$reg->RazonSocial,
-               "2"=>$reg->RUC,
+               "2"=>$reg->NombreContacto,
                "3"=>'<div class="col-12 col-12-small">
                                 <input type="checkbox" class="Seleccionar" data-id="'.$reg->idCliente.'" id="Cliente-'.$reg->idCliente.'" name="Check'.$reg->idCliente.'">
                                 <label for="Cliente-'.$reg->idCliente.'">Seleccione</label>
@@ -226,8 +308,9 @@
          $data[]=array(
                "0"=>'',
                "1"=>$reg->RazonSocial,
-               "2"=>$reg->FechaResultado,
-               "3"=>VerificarResultadoCliente($reg)
+               "2"=>$reg->NombreContacto,
+               "3"=>$reg->FechaResultado,
+               "4"=>VerificarResultadoCliente($reg)
 
             );
          }

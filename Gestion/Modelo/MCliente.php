@@ -7,8 +7,8 @@
       public function __construct(){
       }
 
-	  public function Listar_Cliente(){
-           $sql="CALL `SP_CLIENTE_LISTAR`();";
+	  public function Listar_Cliente($idEntidad){
+           $sql="CALL `SP_CLIENTE_LISTAR`('$idEntidad');";
            return ejecutarConsulta($sql);
        }
       public function Eliminar_Cliente($idCliente){
@@ -20,30 +20,35 @@
            $sql="CALL `SP_CLIENTE_ESTADO`('$idCliente','$accion');";
            return ejecutarConsulta($sql);
        }
-      public function ValidarCliente($ClienteRUC,$idCliente){
+      public function ValidarCliente($ClienteContacto,$idEntidad,$idCliente){
           $sql="";
           if($idCliente=='' || $idCliente==null || empty($idCliente)){
-			   $sql="SELECT * FROM cliente WHERE RUC='$ClienteRUC';";
+			   $sql="SELECT * FROM cliente WHERE Entidad_idEntidad='$idEntidad' and NombreContacto='$ClienteContacto';";
           }else{
-             $sql="SELECT * FROM cliente WHERE idCliente!='$idCliente' and RUC='$ClienteRUC';";
+             $sql="SELECT * FROM cliente WHERE Entidad_idEntidad='$idEntidad' and idCliente!='$idCliente' and NombreContacto='$ClienteContacto';";
           }
           return validarDatos($sql);
       }
-      public function RegistroCliente($idCliente,$ClienteRazonSocial,$ClienteRUC,$ClienteContacto,$ClienteCorreo,$ClienteDireccion){
+      public function RegistroCliente($idCliente,$ClienteContacto,$ClienteCorreo,$ClienteCargo,$idEntidad){
         $sql="";
 
         if($idCliente=="" || $idCliente==null || empty($idCliente)){
-             $sql="CALL `SP_CLIENTE_REGISTRO`('$ClienteRazonSocial','$ClienteRUC','$ClienteContacto','$ClienteCorreo','$ClienteDireccion');";
+             $sql="CALL `SP_CLIENTE_REGISTRO`('$ClienteContacto','$ClienteCorreo','$ClienteCargo','$idEntidad');";
 
         }else{
 
-             $sql="CALL `SP_CLIENTE_EDITAR`('$ClienteRazonSocial','$ClienteRUC','$ClienteContacto','$ClienteCorreo','$ClienteDireccion','$idCliente');";
+             $sql="CALL `SP_CLIENTE_EDITAR`('$ClienteContacto','$ClienteCorreo','$ClienteCargo','$idEntidad','$idCliente');";
         }
+
          return ejecutarConsulta($sql);
       }
 
 		public function Recuperar_Cliente($idCliente){
 			$sql="CALL `SP_CLIENTE_RECUPERAR`('$idCliente');";
+			return ejecutarConsultaSimpleFila($sql);
+		}
+      public function RecuperarEntidadDatos($idEntidad){
+			$sql="CALL `SP_ENTIDAD_RECUPERAR`('$idEntidad');";
 			return ejecutarConsultaSimpleFila($sql);
 		}
 
